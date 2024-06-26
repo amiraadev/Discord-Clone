@@ -5,7 +5,6 @@ import Sidebar from '../components/navigation/Sidebar'
 const RouteLayout = () => {
   return (
     <div>
-        abraaa
         <Sidebar/>
         <Outlet/>
     </div>

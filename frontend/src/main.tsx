@@ -2,7 +2,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
 
 import "@mantine/core/styles.css";
@@ -13,15 +12,7 @@ import {
 	SignedIn,
 	SignedOut,
 } from "@clerk/clerk-react";
-import {
-  BrowserRouter,
-	Navigate,
-	Route,
-	RouterProvider,
-	Routes,
-	createBrowserRouter,
-	useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import {} from "@clerk/clerk-react";
 import RouteLayout from "./layouts/RouteLayout.tsx";
@@ -45,14 +36,13 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const RouterComponent = () => {
-	const navigate = useNavigate();
 
 	return (
 		<ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
 			<Routes>
 				<Route path='' element={<RouteLayout />}>
 					<Route
-          index
+						index
 						element={
 							<ProtectedRoute>
 								<HomePages />
@@ -67,11 +57,11 @@ const RouterComponent = () => {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-			<MantineProvider>
-      <BrowserRouter>
+		<MantineProvider>
+			<BrowserRouter>
 				<RouterComponent />
-      </BrowserRouter>
-			</MantineProvider>
+			</BrowserRouter>
+		</MantineProvider>
 	</React.StrictMode>
 );
 
