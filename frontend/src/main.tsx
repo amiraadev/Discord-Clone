@@ -52,6 +52,7 @@ const RouterComponent = () => {
 			<Routes>
 				<Route path='' element={<RouteLayout />}>
 					<Route
+          index
 						element={
 							<ProtectedRoute>
 								<HomePages />

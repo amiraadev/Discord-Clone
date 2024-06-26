@@ -1,8 +1,9 @@
+import { UserButton } from '@clerk/clerk-react'
 import React from 'react'
 
 const Sidebar = () => {
   return (
-    <div>Sidebar</div>
+    <div><UserButton/></div>
   )
 }
 
