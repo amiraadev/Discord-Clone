@@ -1,21 +1,23 @@
-import {create } from "zustand"
-import {persist} from "zustand/middleware"
+/** @format */
 
-export type Modal = "CreateServer"
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-interface GeneralStore{
-    activeModal: Modal | null
-    setActiveModal: (modal: Modal | null) => void
+export type Modal = "CreateServer";
+
+interface GeneralStore {
+	activeModal: Modal | null;
+	setActiveModal: (modal: Modal | null) => void;
 }
 
 export const useGeneralStore = create<GeneralStore>()(
-    persist(
-        (set) => ({
-            activeModal:null,
-            setActiveModal:(modal:Modal | null) => set({activeModal:modal}),
-        }),
-    {
-        name:"generalStore"
-    }
-    )
-)
+	persist(
+		(set) => ({
+			activeModal: null,
+			setActiveModal: (modal: Modal | null) => set({ activeModal: modal }),
+		}),
+		{
+			name: "generalStore",
+		}
+	)
+);
