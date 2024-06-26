@@ -5,15 +5,16 @@ import { persist } from "zustand/middleware"
 
 interface User {
     id: number;
-    fullname: string;
+    username: string;
     email: string;
     avatarUrl: string;
 }
 interface UserState {
   id: number | undefined
   avatarUrl: string | null
-  fullname: string
+  username: string
   email?: string
+ 
   updateProfileImage: (image: string) => void
   updateUsername: (name: string) => void
   setUser: (user: User) => void
@@ -23,17 +24,17 @@ export const useAuth = create<UserState>()(
   persist(
     (set) => ({
       id: undefined,
-      fullname: "",
+      username: "",
       email: "",
       avatarUrl: null,
 
       updateProfileImage: (image: string) => set({ avatarUrl: image }),
-      updateUsername: (name: string) => set({ fullname: name }),
+      updateUsername: (name: string) => set({ username: name }),
       setUser: (user) =>
         set({
           id: user.id || undefined,
           avatarUrl: user.avatarUrl,
-          fullname: user.fullname,
+          username: user.username,
           email: user.email,
         }),
     }),
