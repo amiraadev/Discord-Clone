@@ -1,34 +1,28 @@
 import { useState } from 'react'
 
-
-import { AppShell, Burger, Group, Skeleton } from '@mantine/core';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDisclosure } from '@mantine/hooks';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import Auth from './components/Auth';
+import Home from './components/Home';
 
 function App() {
-  const [opened, { toggle }] = useDisclosure();
 
 
   return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
-      padding="md"
-    >
-      <AppShell.Header>
-        <Group h="100%" px="md">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-        </Group>
-      </AppShell.Header>
-      <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
-      </AppShell.Navbar>
-      <AppShell.Main>Main</AppShell.Main>
-    </AppShell>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
   
 }
