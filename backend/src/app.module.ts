@@ -11,6 +11,7 @@ import { MemberModule } from './member/member.module';
 import { ProfileResolver } from './profile/profile.resolver';
 import { ProfileService } from './profile/profile.service';
 import { ProfileModule } from './profile/profile.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -36,6 +37,6 @@ import { ProfileModule } from './profile/profile.module';
     ProfileModule
   ],
   controllers: [AppController],
-  providers: [AppService,PrismaService, ProfileResolver, ProfileService],
+  providers: [AppService,PrismaService, ProfileResolver, ProfileService,JwtService],
 })
 export class AppModule {}
