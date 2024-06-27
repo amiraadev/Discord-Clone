@@ -6,6 +6,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
+import { ServerModule } from './server/server.module';
+import { MemberModule } from './member/member.module';
+import { ProfileResolver } from './profile/profile.resolver';
+import { ProfileService } from './profile/profile.service';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -25,9 +30,12 @@ import { ApolloDriver } from '@nestjs/apollo';
           subscriptions:{}
         }
       }
-    })
+    }),
+    ServerModule,
+    MemberModule,
+    ProfileModule
   ],
   controllers: [AppController],
-  providers: [AppService,PrismaService],
+  providers: [AppService,PrismaService, ProfileResolver, ProfileService],
 })
 export class AppModule {}
