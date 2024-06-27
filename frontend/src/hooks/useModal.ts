@@ -2,13 +2,15 @@
 
 import { Modal, useGeneralStore } from "../stores/generalStore";
 
-function useModal(ModalType: Modal) {
-	const { activeModal, setActiveModal } = useGeneralStore();
+export function useModal(modalType: Modal) {
+	const activeModal = useGeneralStore((state) => state.activeModal);
+	const setActiveModal = useGeneralStore((state) => state.setActiveModal);
 
-	const isOpen = activeModal === ModalType;
+	const isOpen = activeModal === modalType;
 
 	const openModal = () => {
-		setActiveModal(activeModal);
+		// console.log("amiraaaaaa");
+		setActiveModal(modalType);
 	};
 	const closeModal = () => {
 		setActiveModal(null);

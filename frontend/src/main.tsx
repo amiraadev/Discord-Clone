@@ -17,6 +17,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {} from "@clerk/clerk-react";
 import RouteLayout from "./layouts/RouteLayout.tsx";
 import HomePages from "./pages/HomePages.tsx";
+import CreateServerModal from "./components/modals/CreateServerModal.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -36,7 +37,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const RouterComponent = () => {
-
 	return (
 		<ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
 			<Routes>
@@ -45,6 +45,7 @@ const RouterComponent = () => {
 						index
 						element={
 							<ProtectedRoute>
+								<CreateServerModal />
 								<HomePages />
 							</ProtectedRoute>
 						}

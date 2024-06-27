@@ -1,8 +1,12 @@
 import React from 'react'
+import CreateServerModal from '../components/modals/CreateServerModal'
 
 const HomePages = () => {
   return (
-    <div>HomePages</div>
+    <div>
+      PAAAAAAAAAAAAAAAAAAAAAAAge
+      {/* <CreateServerModal/> */}
+    </div>
   )
 }
 
