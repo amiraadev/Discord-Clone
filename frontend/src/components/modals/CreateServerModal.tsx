@@ -9,6 +9,7 @@ import {
 	Modal,
 	Stack,
 	Text,
+	TextInput,
 	rem,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -129,6 +130,10 @@ const CreateServerModal = () => {
 							</Flex>
 						)}
 					</Flex>
+					<TextInput label="Server name" placeholder="Enter Server name" {...form.getInputProps("name")} error={form.errors.name}/>
+					<Button w={"30%"} type="submit" variant="gradient" mt="md" disabled={!!form.errors.name}>
+						Create Server
+					</Button>
 				</Stack>
 			</form>
 		</Modal>
