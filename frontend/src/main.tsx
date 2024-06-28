@@ -12,12 +12,13 @@ import {
 	SignedIn,
 	SignedOut,
 } from "@clerk/clerk-react";
+import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import {} from "@clerk/clerk-react";
 import RouteLayout from "./layouts/RouteLayout.tsx";
 import HomePages from "./pages/HomePages.tsx";
 import CreateServerModal from "./components/modals/CreateServerModal.tsx";
+import client from "./apolloClient.ts";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -58,11 +59,13 @@ const RouterComponent = () => {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<MantineProvider>
-			<BrowserRouter>
-				<RouterComponent />
-			</BrowserRouter>
-		</MantineProvider>
+		<ApolloProvider client={client}>
+			<MantineProvider>
+				<BrowserRouter>
+					<RouterComponent />
+				</BrowserRouter>
+			</MantineProvider>
+		</ApolloProvider>
 	</React.StrictMode>
 );
 
