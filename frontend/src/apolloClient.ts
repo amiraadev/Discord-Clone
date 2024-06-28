@@ -139,7 +139,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const cache = new InMemoryCache()
 const client = new ApolloClient({
-  // link:authLink.concat(uploadLink).concat(errorLink),
   link:errorLink.concat(authLink.concat(uploadLink)),
   cache
 })
