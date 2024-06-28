@@ -49,7 +49,7 @@ export class ServerResolver {
     const imageUrl = `${process.env.APP_URL}/images/${uniqueFilename}`;
 
     if(!existsSync(join(process.cwd(), "public",'images'))){
-      mkdirSync(imagePath,{recursive: true})
+      mkdirSync(join(process.cwd(), "public",'images'),{recursive: true})
     }
     const readStream = createReadStream();
     readStream.pipe(createWriteStream(imagePath));
