@@ -1,4 +1,4 @@
-import { Args, Resolver, Query, Context ,Mutation} from '@nestjs/graphql';
+import { Args, Resolver, Query, Context, Mutation } from '@nestjs/graphql';
 import { Server } from './types';
 import { Request } from 'express';
 import { UseGuards } from '@nestjs/common';
@@ -9,7 +9,7 @@ import { CreateServerDto } from './server.sto';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
-import { createWriteStream, existsSync, mkdir, mkdirSync } from 'fs';
+import { createWriteStream, existsSync, mkdirSync } from 'fs';
 
 @UseGuards(GraphqlAuthGuard)
 @Resolver()
@@ -17,10 +17,7 @@ export class ServerResolver {
   constructor(private readonly serverService: ServerService) {}
 
   @Query(() => [Server])
-  async getServers(
-    @Args('profileId') profileId: number,
-    @Context() ctx: { req: Request },
-  ) {
+  async getServers(@Context() ctx: { req: Request }) {
     if (ctx.req?.profile.email)
       return new ApolloError('Profile not found', 'PROFILE_NOT_FOUND');
 
@@ -35,11 +32,14 @@ export class ServerResolver {
     @Args('file', { type: () => GraphQLUpload, nullable: true })
     file: GraphQLUpload,
   ) {
-    let imageUrl;
-    if(file){
-      imageUrl= await this.storeImageAndGetUrl(file)
-    }
-    return this.serverService.createServer(input,imageUrl)
+    // let imageUrl;
+    // if (file) {
+    //   imageUrl = await this.storeImageAndGetUrl(file);
+    // }
+    if(!file)
+      throw new ApolloError('Image is required', 'IMAGE_REQUIRED');
+    const imageUrl = await this.storeImageAndGetUrl(file);
+    return this.serverService.createServer(input, imageUrl);
   }
 
   private async storeImageAndGetUrl(file: GraphQLUpload) {
@@ -48,11 +48,11 @@ export class ServerResolver {
     const imagePath = join(process.cwd(), 'public', 'images', uniqueFilename);
     const imageUrl = `${process.env.APP_URL}/images/${uniqueFilename}`;
 
-    if(!existsSync(join(process.cwd(), "public",'images'))){
-      mkdirSync(join(process.cwd(), "public",'images'),{recursive: true})
+    if (!existsSync(join(process.cwd(), 'public', 'images'))) {
+      mkdirSync(join(process.cwd(), 'public', 'images'), { recursive: true });
     }
     const readStream = createReadStream();
     readStream.pipe(createWriteStream(imagePath));
-    return imageUrl
+    return imageUrl;
   }
 }
