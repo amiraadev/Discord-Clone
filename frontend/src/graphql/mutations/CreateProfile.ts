@@ -1,14 +1,14 @@
-/** @format */
-
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client"
 
 export const CREATE_PROFILE = gql`
-	mutation createProfile($input: CreateProfileDto!) {
-		createProfile(input: $input) {
-			id
-			imageUrl
-			name
-			email
-		}
-	}
-`;
+  mutation CreateProfile($input: CreateProfileDto!) {
+    createProfile(input: $input) {
+      id
+      imageUrl
+      name
+      email
+    }
+  }
+
+
+`

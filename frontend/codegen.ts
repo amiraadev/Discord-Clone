@@ -1,7 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
  
 const config: CodegenConfig = {
-  schema: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
+  schema: 'http://localhost:3000/graphql',
   documents: ['src/graphql/**/*.ts'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
