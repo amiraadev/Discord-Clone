@@ -60,6 +60,14 @@ const Sidebar = () => {
 	const [active, setActive] = useState(0);
 	const navigate = useNavigate();
 
+
+	// useEffect(() => {
+	// 	if (!channelId && !memberId && textChannels.length) {
+	// 	  navigate(`/servers/${serverId}/channels/TEXT/${textChannels[0]?.id}`)
+	// 	}
+	//   })
+
+
 	const links = servers?.map((server, index) => (
 		<NavbarLink
 			label={server?.name}

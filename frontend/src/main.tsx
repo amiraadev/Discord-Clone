@@ -19,6 +19,10 @@ import RouteLayout from "./layouts/RouteLayout.tsx";
 import HomePages from "./pages/HomePages.tsx";
 import CreateServerModal from "./components/modals/CreateServerModal.tsx";
 import client from "./apolloClient.ts";
+import ServerLayout from "./layouts/ChannelLayout.tsx";
+import CreateChannelModal from "./components/modals/CreateChannelModal.tsx";
+import ChannelLayout from "./layouts/ChannelLayout.tsx";
+import ChannelPage from "./pages/ChannelPage.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -48,6 +52,19 @@ const RouterComponent = () => {
 							<ProtectedRoute>
 								<CreateServerModal />
 								<HomePages />
+							</ProtectedRoute>
+						}
+					/>
+				</Route>
+				<Route
+					path='servers/:serverId/channels/:channelType/:channelId'
+					element={<ChannelLayout />}>
+					<Route
+						index
+						element={
+							<ProtectedRoute>
+								<CreateChannelModal />
+								<ChannelPage />
 							</ProtectedRoute>
 						}
 					/>
