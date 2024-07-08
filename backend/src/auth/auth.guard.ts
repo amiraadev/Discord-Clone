@@ -12,6 +12,7 @@ import {
     constructor(private jwtService: JwtService) {}
   
     async canActivate(context: ExecutionContext) {
+      
       const gqlCtx = context.getArgByIndex(2);
       const request: Request = gqlCtx.req;
   
@@ -24,9 +25,12 @@ import {
           publicKey: process.env.JWT_PUBLIC_KEY,
           algorithms: ['RS256'],
         });
+        console.log(payload);
+        
         request['profile'] = payload;
+
       } catch (err) {
-        throw new UnauthorizedException('Not authorized!');
+        throw new UnauthorizedException('Invalid Token!');
       }
       return true;
     }

@@ -10,54 +10,50 @@ import {
 } from "../gql/graphql"
 import { CREATE_PROFILE } from "../graphql/mutations/CreateProfile"
 
-const RouteLayout = () => {
+function RouteLayout() {
   const profile = useProfileStore((state) => state.profile)
-  const Session = useSession()
-  const session = Session.session
+
+  const { session } = useSession()
+
   const [createProfile] = useMutation<
-  CreateProfileMutation,
-  CreateProfileMutationVariables
->(CREATE_PROFILE, {})
-const { isSignedIn } = useAuth()
-const setProfile = useProfileStore((state) => state.setProfile)
+    CreateProfileMutation,
+    CreateProfileMutationVariables
+  >(CREATE_PROFILE, {})
+  const { isSignedIn } = useAuth()
+  const setProfile = useProfileStore((state) => state.setProfile)
 
-
-
-useEffect(() => {
-  if (!isSignedIn) setProfile(null)
-}, [isSignedIn, setProfile])
-useEffect(() => {
-  const createProfileFn = async () => {
-    if (!session?.user) return
-    try {
-      await createProfile({
-        variables: {
-          input: {
-            email: session?.user.emailAddresses[0].emailAddress,
-            name: session?.user.username || "",
-            imageUrl: session?.user.imageUrl,
+  useEffect(() => {
+    if (!isSignedIn) setProfile(null)
+  }, [isSignedIn, setProfile])
+  useEffect(() => {
+    const createProfileFn = async () => {
+      if (!session?.user) return
+      try {
+        await createProfile({
+          variables: {
+            input: {
+              email: session?.user.emailAddresses[0].emailAddress,
+              name: session?.user.username || "",
+              imageUrl: session?.user.imageUrl,
+            },
           },
-        },
-        onCompleted: (data) => {
-          console.log({data});
-          
-          setProfile(data.createProfile)
-        },
-        refetchQueries: ["GetServers"],
-      })
-    } catch (err) {
-      console.log("Error creating profile in backend: ", err)
+          onCompleted: (data) => {
+            setProfile(data.createProfile)
+          },
+          refetchQueries: ["GetServers"],
+        })
+      } catch (err) {
+        console.log("Error creating profile in backend: ", err)
+      }
     }
-  }
-  if (profile?.id) return
-  createProfileFn()
-}, [session?.user, profile?.id])
+    if (profile?.id) return
+    createProfileFn()
+  }, [session?.user, profile?.id])
 
-
-return (
+  return (
     <div>
-        <Sidebar/>
-        <Outlet/>
+      <Sidebar />
+      <Outlet />
     </div>
   )
 }

@@ -17,11 +17,28 @@ import { Dropzone, IMAGE_MIME_TYPE, DropzoneProps } from "@mantine/Dropzone";
 import { useModal } from "../../hooks/useModal";
 import classes from "./CreateServerModal.module.css";
 import { IconUpload, IconX } from "@tabler/icons-react";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+	CreateServerMutation,
+	CreateServerMutationVariables,
+	GetServersQuery,
+	GetServersQueryVariables,
+} from "../../gql/graphql";
+import { CREATE_SERVER } from "../../graphql/mutations/server/CreateServer";
+import { useProfileStore } from "../../stores/profileStore";
+import { GET_SERVERS } from "../../graphql/queries/GetServers";
 
 const CreateServerModal = () => {
 	const { isOpen, closeModal } = useModal("CreateServer");
-	console.log(isOpen);
+	const profileId = useProfileStore((state) => state.profile?.id);
 
+	const [createServer, { loading, error }] = useMutation<
+		CreateServerMutation,
+		CreateServerMutationVariables
+	>(CREATE_SERVER);
+	const { refetch } = useQuery<GetServersQuery, GetServersQueryVariables>(
+		GET_SERVERS
+	);
 	const form = useForm({
 		initialValues: {
 			name: "",
@@ -30,11 +47,33 @@ const CreateServerModal = () => {
 			name: (value) => !value.trim() && "Please enter a name",
 		},
 	});
-	const [imagePreview, setImagePreview] = React.useState<string | null>(null);
+	const onSubmit = () => {
+		if (!form.validate()) return;
+		console.log({ name: form.values.name, profileId });
 
-	useEffect(() => {
-		console.log({ imagePreview });
-	}, [imagePreview]);
+		createServer({
+			variables: {
+				input: {
+					name: form.values.name,
+					profileId,
+				},
+				file,
+			},
+			onCompleted: () => {
+				setImagePreview(null);
+				setFile(null);
+				form.reset();
+				refetch();
+				// Optionally handle the refetch result
+				refetch().then((newData) => {
+					console.log("Servers (after refetch):", newData.data.getServers);
+				});
+				closeModal();
+			},
+			refreshQueries: ["GetServers"],
+		});
+	};
+	const [imagePreview, setImagePreview] = React.useState<string | null>(null);
 
 	const [file, setFile] = React.useState<File | null>(null);
 	const handleDropzoneChange: DropzoneProps["onDrop"] = (files) => {
@@ -55,7 +94,10 @@ const CreateServerModal = () => {
 				change it later.
 			</Text>
 
-			<form onSubmit={form.onSubmit(() => {})}>
+			<form
+				onSubmit={form.onSubmit(() => {
+					onSubmit();
+				})}>
 				<Stack>
 					<Flex justify='center' align='center' direction={"column"}>
 						{!imagePreview && (
@@ -83,9 +125,9 @@ const CreateServerModal = () => {
 										<Text size='sm' c='dimmed' inline mt={7}>
 											Upload a server icon
 										</Text>
-										{/* {error?.message && !file && (
+										{error?.message && !file && (
 											<Text c='red'>{error?.message}</Text>
-										)} */}
+										)}
 									</Stack>
 								</Group>
 							</Dropzone>
@@ -97,7 +139,7 @@ const CreateServerModal = () => {
 									<Button
 										onClick={() => {
 											setImagePreview(null);
-											// setFile(null);
+											setFile(null);
 										}}
 										color='red'
 										pos='absolute'
@@ -122,16 +164,26 @@ const CreateServerModal = () => {
 									<img
 										src={imagePreview}
 										alt='Image description' // Add an alt attribute for accessibility
-										width={'150rem'}
-										height={ '150rem'}
-										style={{ borderRadius: '50%' }}
+										width={"150rem"}
+										height={"150rem"}
+										style={{ borderRadius: "50%" }}
 									/>
 								</>
 							</Flex>
 						)}
 					</Flex>
-					<TextInput label="Server name" placeholder="Enter Server name" {...form.getInputProps("name")} error={form.errors.name}/>
-					<Button w={"30%"} type="submit" variant="gradient" mt="md" disabled={!!form.errors.name}>
+					<TextInput
+						label='Server name'
+						placeholder='Enter Server name'
+						{...form.getInputProps("name")}
+						error={form.errors.name}
+					/>
+					<Button
+						w={"30%"}
+						type='submit'
+						variant='gradient'
+						mt='md'
+						disabled={!!form.errors.name || loading}>
 						Create Server
 					</Button>
 				</Stack>

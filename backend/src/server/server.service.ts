@@ -83,20 +83,20 @@ export class ServerService {
   }
 
   async getServersByProfileEmailOfMember(email: string) {
-    console.log(
-      email,
-      await this.prisma.server.findMany({
-        where: {
-          members: {
-            some: {
-              profile: {
-                email,
-              },
-            },
-          },
-        },
-      }),
-    );
+    // console.log(
+    //   email,
+    //   await this.prisma.server.findMany({
+    //     where: {
+    //       members: {
+    //         some: {
+    //           profile: {
+    //             email,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   }),
+    // );
     return await this.prisma.server.findMany({
       where: {
         members: {
