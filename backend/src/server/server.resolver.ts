@@ -18,8 +18,8 @@ export class ServerResolver {
 
   @Query(() => [Server])
   async getServers(@Context() ctx: { req: Request }) {
-    console.log({profile:ctx.req?.profile});
-    
+    console.log({ profile: ctx.req?.profile });
+
     if (!ctx.req?.profile.email)
       return new ApolloError('Profile not found', 'PROFILE_NOT_FOUND');
 
@@ -28,18 +28,12 @@ export class ServerResolver {
     );
   }
   @Query(() => [Server])
-  async getServer(
-    @Context() ctx: { req: Request },
-    @Args('id') id: number,
-) {
+  async getServer(@Context() ctx: { req: Request }, @Args('id') id: number) {
     if (!ctx.req?.profile.email)
       return new ApolloError('Profile not found', 'PROFILE_NOT_FOUND');
 
-    return await this.serverService.getServersByProfileEmailOfMember(
-      ctx.req?.profile.email,
-    );
+    return await this.serverService.getServer(id, ctx.req?.profile.email);
   }
-
 
   @Mutation(() => Server)
   async createServer(
@@ -51,8 +45,7 @@ export class ServerResolver {
     // if (file) {
     //   imageUrl = await this.storeImageAndGetUrl(file);
     // }
-    if(!file)
-      throw new ApolloError('Image is required', 'IMAGE_REQUIRED');
+    if (!file) throw new ApolloError('Image is required', 'IMAGE_REQUIRED');
     const imageUrl = await this.storeImageAndGetUrl(file);
     return this.serverService.createServer(input, imageUrl);
   }
