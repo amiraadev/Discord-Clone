@@ -18,13 +18,28 @@ export class ServerResolver {
 
   @Query(() => [Server])
   async getServers(@Context() ctx: { req: Request }) {
-    if (ctx.req?.profile.email)
+    console.log({profile:ctx.req?.profile});
+    
+    if (!ctx.req?.profile.email)
       return new ApolloError('Profile not found', 'PROFILE_NOT_FOUND');
 
     return await this.serverService.getServersByProfileEmailOfMember(
       ctx.req?.profile.email,
     );
   }
+  @Query(() => [Server])
+  async getServer(
+    @Context() ctx: { req: Request },
+    @Args('id') id: number,
+) {
+    if (!ctx.req?.profile.email)
+      return new ApolloError('Profile not found', 'PROFILE_NOT_FOUND');
+
+    return await this.serverService.getServersByProfileEmailOfMember(
+      ctx.req?.profile.email,
+    );
+  }
+
 
   @Mutation(() => Server)
   async createServer(

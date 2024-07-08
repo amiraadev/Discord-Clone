@@ -66,6 +66,7 @@ type Profile {
 type Query {
   getProfileByEmail(email: String!): Profile!
   getProfileById(profileId: Float!): Profile!
+  getServer(id: Float!): [Server!]!
   getServers: [Server!]!
 }
 

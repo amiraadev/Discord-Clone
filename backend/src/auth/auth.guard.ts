@@ -17,6 +17,7 @@ import {
       const request: Request = gqlCtx.req;
   
       const token = this.extractToken(request);
+  console.log(token);
   
       if (!token) throw new UnauthorizedException('Not authorized!');
   

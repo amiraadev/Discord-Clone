@@ -61,12 +61,7 @@ const Sidebar = () => {
 	const navigate = useNavigate();
 
 
-	// useEffect(() => {
-	// 	if (!channelId && !memberId && textChannels.length) {
-	// 	  navigate(`/servers/${serverId}/channels/TEXT/${textChannels[0]?.id}`)
-	// 	}
-	//   })
-
+	
 
 	const links = servers?.map((server, index) => (
 		<NavbarLink
