@@ -98,7 +98,7 @@ export type Query = {
   __typename?: 'Query';
   getProfileByEmail: Profile;
   getProfileById: Profile;
-  getServer: Array<Server>;
+  getServer: Server;
   getServers: Array<Server>;
 };
 
@@ -149,7 +149,7 @@ export type GetServerQueryVariables = Exact<{
 }>;
 
 
-export type GetServerQuery = { __typename?: 'Query', getServer: Array<{ __typename?: 'Server', id: number, profileId: number, name: string, imageUrl: string, inviteCode?: string | null, channels: Array<{ __typename?: 'Channel', id: number, type: ChannelType, name?: string | null }>, members?: Array<{ __typename?: 'Member', id: number, role: MemberRole, profileId: number, server?: { __typename?: 'Server', id: number } | null, profile?: { __typename?: 'Profile', id: number, name?: string | null, imageUrl: string, email?: string | null } | null }> | null, profile?: { __typename?: 'Profile', id: number, name?: string | null, imageUrl: string, email?: string | null } | null }> };
+export type GetServerQuery = { __typename?: 'Query', getServer: { __typename?: 'Server', id: number, profileId: number, name: string, imageUrl: string, inviteCode?: string | null, channels: Array<{ __typename?: 'Channel', id: number, type: ChannelType, name?: string | null }>, members?: Array<{ __typename?: 'Member', id: number, role: MemberRole, profileId: number, server?: { __typename?: 'Server', id: number } | null, profile?: { __typename?: 'Profile', id: number, name?: string | null, imageUrl: string, email?: string | null } | null }> | null, profile?: { __typename?: 'Profile', id: number, name?: string | null, imageUrl: string, email?: string | null } | null } };
 
 export type GetServersQueryVariables = Exact<{ [key: string]: never; }>;
 
