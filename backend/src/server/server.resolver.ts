@@ -28,7 +28,7 @@ export class ServerResolver {
     );
   }
   @Query(() => [Server])
-  async getServer(@Context() ctx: { req: Request }, @Args('id') id: number) {
+  async getServer(@Context() ctx: { req: Request }, @Args('id',{nullable:true}) id: number) {
     if (!ctx.req?.profile.email)
       return new ApolloError('Profile not found', 'PROFILE_NOT_FOUND');
 
