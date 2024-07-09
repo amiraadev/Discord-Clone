@@ -24,6 +24,7 @@ import CreateChannelModal from "./components/modals/CreateChannelModal.tsx";
 import ChannelLayout from "./layouts/ChannelLayout.tsx";
 import ChannelPage from "./pages/ChannelPage.tsx";
 import InviteModal from "./components/modals/server/InviteModal.tsx";
+import UpdateServerModal from "./components/modals/server/UpdateServerModal.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -76,6 +77,7 @@ const RouterComponent = () => {
 						element={
 							<ProtectedRoute>
 								<CreateChannelModal />
+								<UpdateServerModal />
 								<InviteModal />
 								<ChannelPage />
 							</ProtectedRoute>
