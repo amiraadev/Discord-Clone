@@ -21,9 +21,12 @@ interface GeneralStore {
 	activeModal: Modal | null;
 	drawerOpen: boolean;
 	chanelTypeForCreateChannelModal: ChannelType | undefined;
+	channelToBeDeletedOrUpdatedId: number | null;
+
 	setActiveModal: (modal: Modal | null) => void;
 	toggleDrawer: () => void;
 	setChannelTypeForCreateChannelModal: (type: ChannelType | undefined) => void;
+	setChannelToBeDeletedOrUpdatedId: (id: number | null) => void;
 }
 
 export const useGeneralStore = create<GeneralStore>()(
@@ -32,14 +35,16 @@ export const useGeneralStore = create<GeneralStore>()(
 			activeModal: null,
 			drawerOpen: true,
 			chanelTypeForCreateChannelModal: ChannelType.Text,
+			channelToBeDeletedOrUpdatedId: null,
 			setActiveModal: (modal: Modal | null) => set({ activeModal: modal }),
 			toggleDrawer: () => set((state) => ({ drawerOpen: !state.drawerOpen })),
 
 			setChannelTypeForCreateChannelModal: (channeltype) =>
 				set(() => ({ chanelTypeForCreateChannelModal: channeltype })),
-
-		
+			setChannelToBeDeletedOrUpdatedId: (id) =>
+				set(() => ({ channelToBeDeletedOrUpdatedId: id })),
 		}),
+
 		{
 			name: "generalStore",
 		}
