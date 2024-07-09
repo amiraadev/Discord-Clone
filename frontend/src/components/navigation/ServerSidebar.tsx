@@ -86,6 +86,27 @@ const ServerSidebar = () => {
 						/>
 					))}
 				</Stack>
+				{!!videoChannels.length && (
+				
+					<ServerSideBarSection
+						sectionType='channels'
+						channelType={ChannelType.Video}
+						role={role}
+						label='Video Channels'
+					/>
+				
+				)}
+				<Stack>
+					{videoChannels.map((channel) => (
+						<ServerChannel
+							key={channel.id}
+							channel={channel}
+							server={server}
+							role={role}
+							isActive={activeChannelId === channel.id}
+						/>
+					))}
+				</Stack>
 			</ScrollArea>
 		</nav>
 	);
