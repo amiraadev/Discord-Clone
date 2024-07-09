@@ -22,9 +22,9 @@ type ServerChannelProps = {
 };
 
 const iconMap = {
-	[ChannelType.Text]: <IconHash />,
-	[ChannelType.Audio]: <IconMicrophone />,
-	[ChannelType.Video]: <IconCamera />,
+	[ChannelType.Text]: <IconHash size={15} />,
+	[ChannelType.Audio]: <IconMicrophone size={15}/>,
+	[ChannelType.Video]: <IconCamera size={15} />,
 };
 const ServerChannel = ({
 	channel,

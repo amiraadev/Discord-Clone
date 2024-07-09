@@ -65,6 +65,27 @@ const ServerSidebar = () => {
 						/>
 					))}
 				</Stack>
+				{!!audioChannels.length && (
+				
+					<ServerSideBarSection
+						sectionType='channels'
+						channelType={ChannelType.Audio}
+						role={role}
+						label='Audio Channels'
+					/>
+				
+				)}
+				<Stack>
+					{audioChannels.map((channel) => (
+						<ServerChannel
+							key={channel.id}
+							channel={channel}
+							server={server}
+							role={role}
+							isActive={activeChannelId === channel.id}
+						/>
+					))}
+				</Stack>
 			</ScrollArea>
 		</nav>
 	);
