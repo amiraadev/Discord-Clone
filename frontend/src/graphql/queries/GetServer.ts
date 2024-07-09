@@ -16,13 +16,8 @@ export const GET_SERVER = gql`
 
       members {
         id
-
-        server {
-          id
-        }
-        id
         role
-        profileId
+        profileId      
         profile {
           id
           name

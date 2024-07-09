@@ -2,7 +2,7 @@ import React from 'react'
 
 const CreateChannelModal = () => {
   return (
-    <div>CreateChannelModal</div>
+    <div>CreateChannelModalllllllllllllllllllllllllllllllllllllllll</div>
   )
 }
 
