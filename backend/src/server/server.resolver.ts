@@ -5,7 +5,7 @@ import { UseGuards } from '@nestjs/common';
 import { GraphqlAuthGuard } from 'src/auth/auth.guard';
 import { ApolloError } from 'apollo-server-express';
 import { ServerService } from './server.service';
-import { CreateServerDto } from './server.sto';
+import { CreateChannelOnServerDto, CreateServerDto, UpdateServerDto } from './server.sto';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
@@ -28,7 +28,10 @@ export class ServerResolver {
     );
   }
   @Query(() => Server)
-  async getServer(@Context() ctx: { req: Request }, @Args('id',{nullable:true}) id: number) {
+  async getServer(
+    @Context() ctx: { req: Request },
+    @Args('id', { nullable: true }) id: number,
+  ) {
     if (!ctx.req?.profile.email)
       return new ApolloError('Profile not found', 'PROFILE_NOT_FOUND');
 
@@ -63,4 +66,55 @@ export class ServerResolver {
     readStream.pipe(createWriteStream(imagePath));
     return imageUrl;
   }
+
+  @Mutation(() => Server)
+  async updateServer(
+    @Args('input') input: UpdateServerDto,
+    @Args('file', {type:()=>GraphQLUpload,nullable:true}) file:GraphQLUpload
+  ) {
+
+    let imageUrl;
+
+    if(file){
+      imageUrl = await this.storeImageAndGetUrl(file); 
+    }
+
+    try {
+      return this.serverService.updateServer(input,imageUrl)
+    } catch (error) {
+      throw new ApolloError(error.message,error.code)
+    }
+
+  }
+
+
+  @Mutation(() => Server)
+  async updateServerWithNewInviteCode(
+    @Args('serverId') serverId: number,
+  ) {
+    try {
+      return this.serverService.updateServerWithNewInviteCode(
+        serverId,
+      )
+    } catch (error) {
+      throw new ApolloError(error);
+    }
+  }
+
+  @Mutation(() => Server)
+  async createChannel(
+    @Args('input') input: CreateChannelOnServerDto,
+    @Context() ctx: {req:Request}
+  ) {
+    try {
+      return this.serverService.createChannel(
+        input,
+        ctx.req?.profile.email
+      )
+    } catch (error) {
+      throw new ApolloError(error.message,error.code);
+    }
+  }
+
+
 }

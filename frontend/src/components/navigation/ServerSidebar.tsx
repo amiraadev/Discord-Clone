@@ -12,6 +12,10 @@ const ServerSidebar = () => {
 	const { textChannels, audioChannels, videoChannels, server, role, members } =
 		useServer();
 
+		console.log({server});
+		console.log({role});
+		
+
 	useEffect(() => {
 		if (!channelId && !memberId && textChannels.length) {
 			navigate(`/servers/${serverId}/channels/TEXT/${textChannels[0]?.id}`);
