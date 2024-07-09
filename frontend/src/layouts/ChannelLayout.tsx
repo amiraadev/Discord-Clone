@@ -7,6 +7,7 @@ import ServerSidebar from "../components/navigation/ServerSidebar";
 const ChannelLayout = () => {
 	return (
 		<>
+		ChannelLayout:
 			<ServerSidebar/>
 			<Outlet />
 		</>

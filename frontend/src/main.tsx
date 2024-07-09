@@ -56,6 +56,17 @@ const RouterComponent = () => {
 						}
 					/>
 				</Route>
+				<Route path='servers/:serverId' element={<ServerLayout />}>
+					<Route
+						index
+						element={
+							<ProtectedRoute>
+								<CreateChannelModal />
+							</ProtectedRoute>
+						}
+					/>
+				</Route>
+
 				<Route
 					path='servers/:serverId/channels/:channelType/:channelId'
 					element={<ChannelLayout />}>
