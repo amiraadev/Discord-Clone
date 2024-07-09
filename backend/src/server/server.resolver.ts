@@ -90,8 +90,10 @@ export class ServerResolver {
 
   @Mutation(() => Server)
   async updateServerWithNewInviteCode(
-    @Args('serverId') serverId: number,
+    @Args('serverId',{nullable:true}) serverId: number,
   ) {
+    if(!serverId)
+      throw new ApolloError('Server id is required','SERVER_ID_REQUIRED')
     try {
       return this.serverService.updateServerWithNewInviteCode(
         serverId,
