@@ -27,7 +27,7 @@ export const useGeneralStore = create<GeneralStore>()(
 	persist(
 		(set) => ({
 			activeModal: null,
-			drawerOpen: false,
+			drawerOpen: true,
 			setActiveModal: (modal: Modal | null) => set({ activeModal: modal }),
 			toggleDrawer:() => set((state) => ({drawerOpen : !state.drawerOpen}))
 		}),
