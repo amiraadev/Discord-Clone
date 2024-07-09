@@ -59,6 +59,8 @@ type Mutation {
   createChannel(input: CreateChannelOnServerDto!): Server!
   createProfile(input: CreateProfileDto!): Profile!
   createServer(file: Upload, input: CreateServerDto!): Server!
+  deleteServer(serverId: Float!): String!
+  leaveServer(serverId: Float!): Server!
   updateServer(file: Upload, input: UpdateServerDto!): Server!
   updateServerWithNewInviteCode(serverId: Float): Server!
 }
