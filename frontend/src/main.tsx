@@ -80,6 +80,7 @@ const RouterComponent = () => {
 								<UpdateServerModal />
 								<InviteModal />
 								<ChannelPage />
+								<CreateChannelModal />
 							</ProtectedRoute>
 						}
 					/>
