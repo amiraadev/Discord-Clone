@@ -75,11 +75,28 @@ export enum MemberRole {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addMemberToServer: Server;
+  changeMemberRole: Server;
   createChannel: Server;
   createProfile: Profile;
   createServer: Server;
+  deleteChannelFromServer: Scalars['String']['output'];
+  deleteMember: Server;
+  deleteServer: Scalars['String']['output'];
+  leaveServer: Server;
   updateServer: Server;
   updateServerWithNewInviteCode: Server;
+};
+
+
+export type MutationAddMemberToServerArgs = {
+  inviteCode: Scalars['String']['input'];
+};
+
+
+export type MutationChangeMemberRoleArgs = {
+  memberId?: InputMaybe<Scalars['Float']['input']>;
+  role: Scalars['String']['input'];
 };
 
 
@@ -96,6 +113,26 @@ export type MutationCreateProfileArgs = {
 export type MutationCreateServerArgs = {
   file?: InputMaybe<Scalars['Upload']['input']>;
   input: CreateServerDto;
+};
+
+
+export type MutationDeleteChannelFromServerArgs = {
+  channelId?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type MutationDeleteMemberArgs = {
+  memberId?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type MutationDeleteServerArgs = {
+  serverId: Scalars['Float']['input'];
+};
+
+
+export type MutationLeaveServerArgs = {
+  serverId: Scalars['Float']['input'];
 };
 
 

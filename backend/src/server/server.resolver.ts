@@ -14,6 +14,7 @@ import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
 import { createWriteStream, existsSync, mkdirSync } from 'fs';
+import { MemberRole } from 'src/member/member.types';
 
 @UseGuards(GraphqlAuthGuard)
 @Resolver()
