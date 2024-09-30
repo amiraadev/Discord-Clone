@@ -46,7 +46,7 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
 
     ```bash
-    git clone [https://github.com/your-username/discord-clone.git](https://github.com/amiraadev/Discord-Clone)
+    git clone git@github.com:amiraadev/Discord-Clone.git
     cd discord-clone
     ```
 
